@@ -1,0 +1,90 @@
+<template>
+  <div>
+    <!-- 轮播图 -->
+    <mt-swipe :auto="4000">
+      <mt-swipe-item v-for="(pic,index) in pics" :key="index">
+        <a :href="pic.url">
+          <img :src="pic.img">
+        </a>
+      </mt-swipe-item>
+    </mt-swipe>
+    <!-- 九宫格 -->
+    <my-ul>
+      <my-li v-for="(router,index) in homeRouters" :key="index">
+        <a href="">
+          <div :class="'bgImg ' + router.className">
+            {{router.title}}
+          </div>
+        </a>
+      </my-li>
+    </my-ul>
+  </div>
+</template>
+
+<script>
+export default {
+  created() {
+    // 发送ajax请求获取图片等相关资源
+    this.$axios.get('getlunbo').then(res => {
+      // 得到的数组对象赋值给pics
+      this.pics = res.data.message;
+    });
+  },
+  data() {
+    return {
+      pics: [],
+      homeRouters: [
+        { title: "新闻列表", className: "new" },
+        { title: "图文分享", className: "picShare" },
+        { title: "商品列表", className: "goodShow" },
+        { title: "留言反馈", className: "feedback" },
+        { title: "搜索资讯", className: "search" },
+        { title: "联系我们", className: "callme" }
+      ]
+    };
+  }
+};
+</script> 
+
+<style scoped>
+/* 轮播图样式 */
+.mint-swipe-item img {
+  width: 100%;
+}
+.mint-swipe {
+  height: 33%;
+}
+/* 九宫格样式 */
+.bgImg {
+  background-size: 50px;
+  background-repeat: no-repeat;
+  background-position: 28px 35px;
+  font-size: 14px;
+  font-family: "Microsoft YaHei";
+  width:100%;
+  height:100%;
+}
+
+li a {
+  color: black;
+  display:block;
+}
+.new {
+  background-image: url("../../static/img/news.png");
+}
+.picShare {
+  background-image: url("../../static/img/picShare.png");
+}
+.goodShow {
+  background-image: url("../../static/img/goodShow.png");
+}
+.feedback {
+  background-image: url("../../static/img/feedback.png");
+}
+.search {
+  background-image: url("../../static/img/search.png");
+}
+.callme {
+  background-image: url("../../static/img/callme.png");
+}
+</style>
