@@ -1,6 +1,6 @@
 <template>
   <div>
-    <ul class="clearfix">
+    <ul>
       <!-- li -->
       <slot></slot>
     </ul>
@@ -9,10 +9,12 @@
 
 <script>
 export default {
-  name: 'my-ul'
+  name: "my-ul"
 };
 </script>
 
 <style scoped>
-
+ul {
+  overflow: hidden;
+}
 </style>

@@ -10,12 +10,12 @@
     </mt-swipe>
     <!-- 九宫格 -->
     <my-ul>
-      <my-li v-for="(router,index) in homeRouters" :key="index">
-        <a href="">
-          <div :class="'bgImg ' + router.className">
-            {{router.title}}
+      <my-li v-for="(item,index) in homeRouters" :key="index">
+        <router-link :to="item.router">
+          <div :class="'bgImg ' + item.className">
+            {{item.title}}
           </div>
-        </a>
+        </router-link>
       </my-li>
     </my-ul>
   </div>
@@ -34,12 +34,12 @@ export default {
     return {
       pics: [],
       homeRouters: [
-        { title: "新闻列表", className: "new" },
-        { title: "图文分享", className: "picShare" },
-        { title: "商品列表", className: "goodShow" },
-        { title: "留言反馈", className: "feedback" },
-        { title: "搜索资讯", className: "search" },
-        { title: "联系我们", className: "callme" }
+        { title: "新闻列表", className: "new", router:{name:'news.list'} },
+        { title: "图文分享", className: "picShare", router:{name:'photo.list',params:{categoryId:0}} },
+        { title: "商品列表", className: "goodShow", router:{name:'news.list'}  },
+        { title: "留言反馈", className: "feedback", router:{name:'news.list'}  },
+        { title: "搜索资讯", className: "search", router:{name:'news.list'}  },
+        { title: "联系我们", className: "callme", router:{name:'news.list'}  }
       ]
     };
   }
@@ -61,8 +61,6 @@ export default {
   background-position: 28px 35px;
   font-size: 14px;
   font-family: "Microsoft YaHei";
-  width:100%;
-  height:100%;
 }
 
 li a {
