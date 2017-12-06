@@ -1,8 +1,8 @@
 <template>
     <div>
-      <mt-header title="roc"></mt-header>
-      <router-view class="tmpl"></router-view>
-      <mt-tabbar v-model="selected">
+      <mt-header title="roc" ref="header"></mt-header>
+      <router-view class="tmpl" :appRefs="$refs"></router-view>
+      <mt-tabbar v-model="selected" ref="footer">
         <mt-tab-item id="home">
           <img slot="icon" src="../static/img/index.png">
           首页

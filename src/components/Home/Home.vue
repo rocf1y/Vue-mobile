@@ -34,12 +34,12 @@ export default {
     return {
       pics: [],
       homeRouters: [
-        { title: "新闻列表", className: "new", router:{name:'news.list'} },
-        { title: "图文分享", className: "picShare", router:{name:'photo.list',params:{categoryId:0}} },
-        { title: "商品列表", className: "goodShow", router:{name:'news.list'}  },
-        { title: "留言反馈", className: "feedback", router:{name:'news.list'}  },
-        { title: "搜索资讯", className: "search", router:{name:'news.list'}  },
-        { title: "联系我们", className: "callme", router:{name:'news.list'}  }
+        { title: "新闻列表", className: "new", router: {name: 'news.list'} },
+        { title: "图文分享", className: "picShare", router: {name: 'photo.list',params: {categoryId: 0}} },
+        { title: "商品列表", className: "goodShow", router: {name: 'goods.list'} },
+        { title: "留言反馈", className: "feedback", router: {name: 'news.list'} },
+        { title: "搜索资讯", className: "search", router: {name: 'news.list'} },
+        { title: "联系我们", className: "callme", router: {name: 'news.list'} }
       ]
     };
   }

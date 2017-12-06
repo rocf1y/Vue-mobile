@@ -15,6 +15,7 @@
         <div class="photo-desc">
           <p v-html="imgsInfo.content"></p>
         </div>
+        <comment :comId="this.$route.params.imgId"></comment>
     </div>
 </template>
 <script>

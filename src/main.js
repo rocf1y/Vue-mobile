@@ -5,9 +5,11 @@ import Vue from 'vue';
 import MyUl from './components/Commons/MyUl.vue';
 import MyLi from './components/Commons/MyLi.vue';
 import NavBar from './components/Commons/NavBar.vue';
+import CommentData from './components/Commons/Comment.vue';
 Vue.component(MyUl.name,MyUl);
 Vue.component(MyLi.name,MyLi);
 Vue.component(NavBar.name,NavBar);
+Vue.component(CommentData.name,CommentData);
 
 // vue-preview ------
 import VuePreview from 'vue-preview';
@@ -23,6 +25,9 @@ import NewsList from './components/News/NewsList.vue';
 import NewsDetail from './components/News/NewsDetail.vue';
 import PhotoList from './components/Photo/PhotoList.vue';
 import PhotoDetail from './components/Photo/PhotoDetail.vue';
+import GoodsList from './components/Goods/GoodsList.vue';
+import GoodsDetail from './components/Goods/GoodsDetail.vue';
+
 
 // global filter -<<<<<<
 import Moment from 'moment';
@@ -53,7 +58,9 @@ router.addRoutes([
   {name:'news.list',path:'/news/list',component:NewsList},
   {name:'list.detail',path:'/news/detail',component:NewsDetail},
   {name:'photo.list',path:'/photo/list/:categoryId',component:PhotoList},
-  {name:'photo.detail',path:'/photo/detail/:imgId',component:PhotoDetail}
+  {name:'photo.detail',path:'/photo/detail/:imgId',component:PhotoDetail},
+  {name:'goods.list',path:'/goods/list',component:GoodsList},
+  {name:'goods.detail',path:'/goods/detail/:goodsId',component:GoodsDetail}
 ]);
 // vue-router end ->>>>>>
 
