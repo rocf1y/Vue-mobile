@@ -6,10 +6,12 @@ import MyUl from './components/Commons/MyUl.vue';
 import MyLi from './components/Commons/MyLi.vue';
 import NavBar from './components/Commons/NavBar.vue';
 import CommentData from './components/Commons/Comment.vue';
+import MySwipe from './components/Commons/MySwipe.vue';
 Vue.component(MyUl.name,MyUl);
 Vue.component(MyLi.name,MyLi);
 Vue.component(NavBar.name,NavBar);
 Vue.component(CommentData.name,CommentData);
+Vue.component(MySwipe.name,MySwipe);
 
 // vue-preview ------
 import VuePreview from 'vue-preview';
@@ -29,23 +31,20 @@ import GoodsList from './components/Goods/GoodsList.vue';
 import GoodsDetail from './components/Goods/GoodsDetail.vue';
 
 
-// global filter -<<<<<<
+// global filter ------
 import Moment from 'moment';
-// time
 Vue.filter('convertTime',(value) => { 
   return Moment(value).format('YYYY-MM-DD');
 })
-// title
 Vue.filter('convertTitle',(value, limit) => {
-  if (!value) {return};
+  if (!value) return;
   if (value.length > limit) {
     return value.substr(0, limit) + '...';
   }
   return value;
 })
-// global filter ->>>>>>
 
-// vue-router start -<<<<<<
+// vue-router start ------
 import VueRouter from 'vue-router';
 Vue.use(VueRouter);
 let router = new VueRouter();
@@ -62,22 +61,19 @@ router.addRoutes([
   {name:'goods.list',path:'/goods/list',component:GoodsList},
   {name:'goods.detail',path:'/goods/detail/:goodsId',component:GoodsDetail}
 ]);
-// vue-router end ->>>>>>
 
-// MintUi start -<<<<<<
+// MintUi start -------
 import MintUi from 'mint-ui';
 import 'mint-ui/lib/style.css';
 Vue.use(MintUi);
-// MintUi end ->>>>>>
 
 // global style ------
 import './static/css/global.css';
 
-// Axios start -<<<<<<
+// Axios start ------
 import Axios from 'axios';
 Vue.prototype.$axios = Axios;
 Axios.defaults.baseURL = 'http://vue.studyit.io/api/';
-// Axios end ->>>>>>
 
 new Vue({
   el:'#app',

@@ -3,16 +3,16 @@
     <nav-bar title="商品详情"></nav-bar>
     <div class="outer-swiper">
       <div class="swiper">
-        我真的是轮播图
+        <my-swipe :url="swipeUrl"></my-swipe>
       </div>
     </div>
     <div class="product-desc">
       <ul>
         <li><span class="product-desc-span">
-          {{goodsDetail.title | convertTitle(20)}}
+          {{goodsInfo.title | convertTitle(20)}}
         </span></li>
         <li class="price-li">市场价：
-          <s>￥{{goodsDetail.market_price}}</s> 销售价：<span>￥{{goodsDetail.sell_price}}</span></li>
+          <s>￥{{goodsInfo.market_price}}</s> 销售价：<span>￥{{goodsInfo.sell_price}}</span></li>
         <li class="number-li">购买数量：<span>-</span><span>1</span><span>+</span></li>
         <li>
           <mt-button type="primary">立即购买</mt-button>
@@ -24,9 +24,9 @@
     <div class="product-props">
       <ul>
         <li>商品参数</li>
-        <li>商品货号：{{goodsDetail.goods_no}}</li>
-        <li>库存情况：{{goodsDetail.stock_quantity}}件</li>
-        <li>上架时间：{{goodsDetail.add_time | convertTime}}</li>
+        <li>商品货号：{{goodsInfo.goods_no}}</li>
+        <li>库存情况：{{goodsInfo.stock_quantity}}件</li>
+        <li>上架时间：{{goodsInfo.add_time | convertTime}}</li>
       </ul>
     </div>
     <div class="product-info">
@@ -43,20 +43,26 @@
 </template>
 <script>
 export default {
-  data(){
+  data() {
     return {
-      goodsDetail:{}
-    }
+      goodsInfo: {},
+      swipeUrl: ""
+    };
   },
-  created(){
+  created() {
+    // 获取路由参数
     let goodsId = this.$route.params.goodsId;
-    this.$axios.get(`goods/getinfo/${goodsId}`)
-    .then(res => {
-      this.goodsDetail = res.data.message[0];
-    })
-    .catch(err => {
-      console.log(err)
-    })
+    // 获取轮播图组件需要发送的url
+    this.swipeUrl = `getthumimages/${this.$route.params.goodsId}`;
+    // 发送请求获取商品数据
+    this.$axios
+      .get(`goods/getinfo/${goodsId}`)
+      .then(res => {
+        this.goodsInfo = res.data.message[0];
+      })
+      .catch(err => {
+        console.log(err);
+      });
   }
 };
 </script>
@@ -122,7 +128,8 @@ export default {
 }
 
 .product-desc ul > :nth-child(1) {
-  border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+  border-bottom: 2px solid #ccc;
+  padding-bottom: 8px;
 }
 
 .product-desc ul,
@@ -150,8 +157,10 @@ export default {
 
 /*商品参数*/
 
-.product-props ul > :nth-child(1) {
+.product-props ul > li:nth-child(1) {
   text-align: left;
+  border-bottom: 2px solid #ccc;
+  padding-bottom: 8px;
 }
 
 .product-props ul:not(:nth-child(1)) {
