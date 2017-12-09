@@ -44,7 +44,7 @@ Vue.filter('convertTitle',(value, limit) => {
   return value;
 })
 
-// vue-router start ------
+// vue-router ------
 import VueRouter from 'vue-router';
 Vue.use(VueRouter);
 let router = new VueRouter();
@@ -62,7 +62,7 @@ router.addRoutes([
   {name:'goods.detail',path:'/goods/detail/:goodsId',component:GoodsDetail}
 ]);
 
-// MintUi start -------
+// MintUi -------
 import MintUi from 'mint-ui';
 import 'mint-ui/lib/style.css';
 Vue.use(MintUi);
@@ -70,7 +70,7 @@ Vue.use(MintUi);
 // global style ------
 import './static/css/global.css';
 
-// Axios start ------
+// Axios ------
 import Axios from 'axios';
 Vue.prototype.$axios = Axios;
 Axios.defaults.baseURL = 'http://vue.studyit.io/api/';

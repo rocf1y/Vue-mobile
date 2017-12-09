@@ -13,14 +13,16 @@
         </span></li>
         <li class="price-li">市场价：
           <s>￥{{goodsInfo.market_price}}</s> 销售价：<span>￥{{goodsInfo.sell_price}}</span></li>
-        <li class="number-li">购买数量：<span>-</span><span>1</span><span>+</span></li>
+        <li class="number-li">购买数量：<span @click="substract">-</span><span>{{pickNum}}</span><span @click="add">+</span></li>
         <li>
           <mt-button type="primary">立即购买</mt-button>
-          <mt-button type="danger">加入购物车</mt-button>
+          <mt-button type="danger" @click="addShopcart">加入购物车</mt-button>
         </li>
       </ul>
     </div>
-    <div class="ball"></div>
+    <transition name="myBall" v-on:after-enter="afterEnter">
+      <div class="ball" v-if="showBall"></div>
+    </transition>
     <div class="product-props">
       <ul>
         <li>商品参数</li>
@@ -46,8 +48,29 @@ export default {
   data() {
     return {
       goodsInfo: {},
-      swipeUrl: ""
+      swipeUrl: "",
+      showBall: false,
+      pickNum: 1
     };
+  },
+  methods: {
+    addShopcart() {
+      this.showBall = true;
+    },
+    afterEnter() {
+      this.showBall = false;
+    },
+    add() {
+      this.pickNum++;
+      this.pickNum =
+        this.pickNum > this.goodsInfo.stock_quantity
+          ? this.goodsInfo.stock_quantity
+          : this.pickNum;
+    },
+    substract() {
+      this.pickNum--;
+      this.pickNum = this.pickNum < 1 ? 1 : this.pickNum;
+    }
   },
   created() {
     // 获取路由参数
@@ -67,8 +90,12 @@ export default {
 };
 </script>
 <style scoped>
-.ball-enter-active {
-  animation: bounce-in 1s;
+.myball-leave {
+  opacity: 0;
+}
+/* 进入中的动画 */
+.myball-enter-active {
+  animation: bounce-in 0.8s;
 }
 
 @keyframes bounce-in {
@@ -82,7 +109,7 @@ export default {
     transform: translate3d(160px, 0px, 0);
   }
   100% {
-    transform: translate3d(140px, 300px, 0);
+    transform: translate3d(100px, 180px, 0);
   }
 }
 
