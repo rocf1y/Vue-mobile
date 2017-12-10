@@ -1,7 +1,9 @@
 <template>
     <div>
       <mt-header title="roc" ref="header"></mt-header>
-      <router-view class="tmpl" :appRefs="$refs"></router-view>
+      <transition name="rv" mode="out-in">
+        <router-view class="tmpl" :appRefs="$refs"></router-view>
+      </transition>
       <mt-tabbar v-model="selected" ref="footer">
         <mt-tab-item id="home">
           <img slot="icon" src="../static/img/index.png">
@@ -13,7 +15,7 @@
         </mt-tab-item>
         <mt-tab-item id="shopcart">
           <img slot="icon" src="../static/img/shopcart.png">
-          购物车
+          购物车<mt-badge type="error" size="small">{{num}}</mt-badge>
         </mt-tab-item>
         <mt-tab-item id="search">
           <img slot="icon" src="../static/img/find.png">
@@ -23,10 +25,13 @@
     </div>
 </template>
 <script>
+import GoodsTools from "./Commons/GoodsTools.js";
+import VueBas from "./Commons/VueBas.js";
 export default {
   data() {
     return {
-      selected: ""
+      selected: "",
+      num: GoodsTools.getTotalCount()
     };
   },
   watch: {
@@ -36,10 +41,24 @@ export default {
         name: newV
       });
     }
+  },
+  created() {
+    // 加减小球数量
+    VueBas.$on("addShopcart", pickNum => {
+      this.num += pickNum;
+    });
   }
 };
 </script>
 <style scoped>
+.rv-enter-active,
+.rv-leave-active {
+  transition: opacity 0.5s;
+}
+.rv-enter,
+.rv-leave-to {
+  opacity: 0;
+}
 .mint-tabbar {
   position: fixed;
   bottom: 0;

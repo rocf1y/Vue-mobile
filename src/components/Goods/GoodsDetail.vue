@@ -44,22 +44,34 @@
   </div>
 </template>
 <script>
+import GoodsTools from "../Commons/GoodsTools.js";
+import VueBas from '../Commons/VueBas.js';
 export default {
   data() {
     return {
-      goodsInfo: {},
-      swipeUrl: "",
-      showBall: false,
-      pickNum: 1
+      goodsInfo: {}, // 商品详情信息
+      swipeUrl: "", // 轮播图的url
+      showBall: false, // 小球是否存在
+      pickNum: 1 // 加入购物车的数量
     };
   },
   methods: {
+    // 点击购物车按钮是 小球出现
     addShopcart() {
       this.showBall = true;
+      // 更改本地存储
+      GoodsTools.addOrUpdate({
+        id: this.goodsInfo.id,
+        num: this.pickNum
+      });
     },
+    // 进入后小球隐藏
     afterEnter() {
       this.showBall = false;
+      // 通知app接受商品数量参数
+      VueBas.$emit('addShopcart',this.pickNum);
     },
+    // 数量加
     add() {
       this.pickNum++;
       this.pickNum =
@@ -67,6 +79,7 @@ export default {
           ? this.goodsInfo.stock_quantity
           : this.pickNum;
     },
+    // 数量减
     substract() {
       this.pickNum--;
       this.pickNum = this.pickNum < 1 ? 1 : this.pickNum;
