@@ -26,7 +26,7 @@
 </template>
 <script>
 import GoodsTools from "./Commons/GoodsTools.js";
-import VueBas from "./Commons/VueBas.js";
+import VueBus from "./Commons/VueBus.js";
 export default {
   data() {
     return {
@@ -44,9 +44,13 @@ export default {
   },
   created() {
     // 加减小球数量
-    VueBas.$on("addShopcart", pickNum => {
+    VueBus.$on("addShopcart", pickNum => {
       this.num += pickNum;
     });
+    // 商品数量改变
+    VueBus.$on('changeTotalCount',num => {
+      this.num = num;
+    })
   }
 };
 </script>

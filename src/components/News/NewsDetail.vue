@@ -1,8 +1,8 @@
 <template>
   <div>
-    <nav-bar title="新闻详情"></nav-bar>
+    <nav-bar :title="title"></nav-bar>
     <div class="news-title">
-      <p>{{newsInfo.title | convertTitle(15)}}</p>
+      <p>{{newsInfo.title}}</p>
       <div>
         <span>{{newsInfo.click}}次点击</span>
         <span>分类:民生经济</span>
@@ -15,22 +15,38 @@
 
 <script>
 export default {
-  data(){
+  data() {
     return {
-      newsInfo:{}
+      newsInfo: {},
+      title: ""
+    };
+  },
+  beforeRouteEnter(to, from, next) {
+    let title = "详情列表";
+    switch (from.name) {
+      case "goods.detail":
+        title = "商品图文介绍";
+        break;
+      case 'list.detail':
+        title = '新闻详情';
+        break;
     }
+    next(vm => {
+      vm.title = title;
+    })
   },
   created() {
     // 获取锚点newsId
     let newsId = this.$route.query.newsId;
     // 根据newsId发送请求
-    this.$axios.get("getnew/" + newsId)
-    .then(res => {
-      this.newsInfo = res.data.message[0];
-    })
-    .catch(err => {
-      console.log(err)
-    })  
+    this.$axios
+      .get("getnew/" + newsId)
+      .then(res => {
+        this.newsInfo = res.data.message[0];
+      })
+      .catch(err => {
+        console.log(err);
+      });
   }
 };
 </script>

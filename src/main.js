@@ -29,7 +29,7 @@ import PhotoList from './components/Photo/PhotoList.vue';
 import PhotoDetail from './components/Photo/PhotoDetail.vue';
 import GoodsList from './components/Goods/GoodsList.vue';
 import GoodsDetail from './components/Goods/GoodsDetail.vue';
-
+import GoodsComment from './components/Goods/GoodsComment.vue';
 
 // global filter ------
 import Moment from 'moment';
@@ -59,7 +59,9 @@ router.addRoutes([
   {name:'photo.list',path:'/photo/list/:categoryId',component:PhotoList},
   {name:'photo.detail',path:'/photo/detail/:imgId',component:PhotoDetail},
   {name:'goods.list',path:'/goods/list',component:GoodsList},
-  {name:'goods.detail',path:'/goods/detail/:goodsId',component:GoodsDetail}
+  {name:'goods.detail',path:'/goods/detail/:goodsId',component:GoodsDetail},
+  {name:'goods.detail.show',path:'/goods/show/info',component:NewsDetail},
+  {name:'goods.comment',path:'/goods/comment',component:GoodsComment}
 ]);
 
 // MintUi -------

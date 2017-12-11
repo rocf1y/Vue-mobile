@@ -34,10 +34,10 @@
     <div class="product-info">
       <ul>
         <li>
-          <mt-button type="primary" size="large" plain>图文介绍</mt-button>
+          <mt-button type="primary" size="large" plain @click="goGoodsShow">图文介绍</mt-button>
         </li>
         <li>
-          <mt-button type="danger" size="large" plain>商品评论</mt-button>
+          <mt-button type="danger" size="large" plain @click="goGoodsComment">商品评论</mt-button>
         </li>
       </ul>
     </div>
@@ -45,7 +45,7 @@
 </template>
 <script>
 import GoodsTools from "../Commons/GoodsTools.js";
-import VueBas from '../Commons/VueBas.js';
+import VueBus from '../Commons/VueBus.js';
 export default {
   data() {
     return {
@@ -69,7 +69,7 @@ export default {
     afterEnter() {
       this.showBall = false;
       // 通知app接受商品数量参数
-      VueBas.$emit('addShopcart',this.pickNum);
+      VueBus.$emit('addShopcart',this.pickNum);
     },
     // 数量加
     add() {
@@ -83,6 +83,22 @@ export default {
     substract() {
       this.pickNum--;
       this.pickNum = this.pickNum < 1 ? 1 : this.pickNum;
+    },
+    goGoodsShow(){
+      this.$router.push({
+        name:'goods.detail.show',
+        query: {
+          newsId: this.goodsInfo.id
+        }
+      })
+    },
+    goGoodsComment(){
+      this.$router.push({
+        name: 'goods.comment',
+        query: {
+          cis: this.goodsInfo.id
+        }
+      })
     }
   },
   created() {
