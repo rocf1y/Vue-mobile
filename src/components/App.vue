@@ -26,6 +26,7 @@
 </template>
 <script>
 import GoodsTools from "./Commons/GoodsTools.js";
+// 子组件用来向父组件传递参数
 import VueBus from "./Commons/VueBus.js";
 export default {
   data() {
